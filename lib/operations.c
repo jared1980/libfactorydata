@@ -1,7 +1,8 @@
 #include <stdint.h>
 #include <string.h>
 #include <errno.h>
-#include "include.h"
+
+#include "config.h"
 #ifndef HAVE_SECURE_WRAPPER_H
 #include <stdio.h> /* popen/pclose */
 #else
