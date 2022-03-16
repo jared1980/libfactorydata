@@ -17,7 +17,7 @@ AM_PROG_AR
 LT_INIT
 
 # Checks for header files.
-AC_CHECK_HEADERS([stdint.h string.h])
+AC_CHECK_HEADERS([stdint.h string.h secure_wrapper.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_SIZE_T
