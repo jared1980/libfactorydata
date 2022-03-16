@@ -1,7 +1,8 @@
 #include <stdint.h>
 #include <string.h>
 #include <errno.h>
-#if 1
+#include "include.h"
+#ifndef HAVE_SECURE_WRAPPER_H
 #include <stdio.h> /* popen/pclose */
 #else
 #include "secure_wrapper.h"
@@ -100,7 +101,7 @@ int rdkf_fd_get(const char *id, void **dest, size_t *sz)
     return -ENOENT;
 
   /* commpose command */
-#if 1
+#ifndef HAVE_SECURE_WRAPPER_H
   snprintf(cmd, sizeof(cmd),  ARC_BOARD_CMD_GET, item->arc_fd_id);
   if((fp = v_secure_popen("r", cmd)) != NULL)
 #else
@@ -108,7 +109,7 @@ int rdkf_fd_get(const char *id, void **dest, size_t *sz)
 #endif
   {
     fgets(result, sizeof(result)-1, fp);
-#if 1
+#ifndef HAVE_SECURE_WRAPPER_H
     pclose(fp);
 #else
     v_secure_pclose(fp);
@@ -182,7 +183,7 @@ int rdkf_fd_set(const char *id, const void *src, size_t sz)
   if(i > (int)(sizeof(cmd) - 1))
     return -ENOMEM;
 
-#if 1
+#ifndef HAVE_SECURE_WRAPPER_H
   snprintf(cmd, sizeof(cmd), ARC_BOARD_CMD_SET, item->arc_fd_id, (const char *)src);
   if((fp = popen(cmd, "r")) != NULL)
 #else
@@ -190,7 +191,7 @@ int rdkf_fd_set(const char *id, const void *src, size_t sz)
 #endif
   {
     fgets(result, sizeof(result)-1, fp);
-#if 1
+#ifndef HAVE_SECURE_WRAPPER_H
     pclose(fp);
 #else
     v_secure_pclose(fp);
